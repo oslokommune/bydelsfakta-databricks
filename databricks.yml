@@ -1,0 +1,60 @@
+bundle:
+  name: bydelsfakta-databricks
+
+workspace:
+  profile: BYDELSFAKTA
+
+artifacts:
+  python_artifact:
+    type: whl
+    build: uv build --wheel
+
+include:
+  - resources/*.yml
+
+resources:
+  volumes:
+    uploads:
+      catalog_name: ${var.catalog}
+      schema_name: bronze_default
+      name: uploads
+      volume_type: MANAGED
+    # WARNING: bydelsfakta-api reads from this volume's underlying S3
+    # location. The S3 bucket/prefix are hardcoded in
+    # bydelsfakta-api/serverless.yaml. If this volume is deleted and recreated,
+    # those values must be updated.
+    silver_output:
+      catalog_name: ${var.catalog}
+      schema_name: silver_default
+      name: output
+      volume_type: MANAGED
+    gold_output:
+      catalog_name: ${var.catalog}
+      schema_name: gold_default
+      name: output
+      volume_type: MANAGED
+
+variables:
+  catalog:
+    description: Unity Catalog catalog name
+  uploads_dir:
+    description: Volume path for input Excel uploads
+  silver_dir:
+    description: Volume path for silver CSV output
+  gold_dir:
+    description: Volume path for gold JSON output
+
+targets:
+  dev:
+    mode: development
+    default: true
+    presets:
+      artifacts_dynamic_version: true
+    variables:
+      catalog: dig_bydelsfakta_dev_green
+      uploads_dir: /Volumes/dig_bydelsfakta_dev_green/bronze_default/uploads
+      silver_dir: /Volumes/dig_bydelsfakta_dev_green/silver_default/output
+      gold_dir: /Volumes/dig_bydelsfakta_dev_green/gold_default/output
+
+  prod:
+    mode: production

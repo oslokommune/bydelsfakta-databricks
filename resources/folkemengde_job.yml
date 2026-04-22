@@ -1,0 +1,65 @@
+resources:
+  jobs:
+    folkemengde_historisk:
+      name: bydelsfakta-folkemengde-utvikling-historisk
+      tasks:
+        - task_key: folkemengde_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: folkemengde
+            parameters:
+              - "--input-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--silver-dir=${var.silver_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/folkemengde-utvikling-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    folkemengde_historisk_prosent:
+      name: bydelsfakta-folkemengde-utvikling-historisk-prosent
+      tasks:
+        - task_key: folkemengde_historisk_prosent
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: folkemengde
+            parameters:
+              - "--input-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/folkemengde-utvikling-historisk-prosent"
+              - "--type-of-ds=historisk-prosent"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    folkemengde_nokkeltall:
+      name: bydelsfakta-nokkeltall-om-befolkningen
+      tasks:
+        - task_key: folkemengde_nokkeltall
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: folkemengde
+            parameters:
+              - "--input-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/nokkeltall-om-befolkningen"
+              - "--type-of-ds=nokkeltall"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

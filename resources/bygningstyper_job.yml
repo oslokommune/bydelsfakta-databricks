@@ -1,0 +1,212 @@
+resources:
+  jobs:
+    bygningstyper_alle_status:
+      name: bydelsfakta-bygningstyper-alle-status
+      tasks:
+        - task_key: bygningstyper_alle_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--silver-dir=${var.silver_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-alle-status"
+              - "--type-of-ds=alle_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_alle_historisk:
+      name: bydelsfakta-bygningstyper-alle-historisk
+      tasks:
+        - task_key: bygningstyper_alle_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-alle-historisk"
+              - "--type-of-ds=alle_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_blokk_status:
+      name: bydelsfakta-bygningstyper-blokk-status
+      tasks:
+        - task_key: bygningstyper_blokk_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-blokk-status"
+              - "--type-of-ds=blokk_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_blokk_historisk:
+      name: bydelsfakta-bygningstyper-blokk-historisk
+      tasks:
+        - task_key: bygningstyper_blokk_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-blokk-historisk"
+              - "--type-of-ds=blokk_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_enebolig_status:
+      name: bydelsfakta-bygningstyper-enebolig-status
+      tasks:
+        - task_key: bygningstyper_enebolig_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-enebolig-status"
+              - "--type-of-ds=enebolig_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_enebolig_historisk:
+      name: bydelsfakta-bygningstyper-enebolig-historisk
+      tasks:
+        - task_key: bygningstyper_enebolig_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-enebolig-historisk"
+              - "--type-of-ds=enebolig_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_rekkehus_status:
+      name: bydelsfakta-bygningstyper-rekkehus-status
+      tasks:
+        - task_key: bygningstyper_rekkehus_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-rekkehus-status"
+              - "--type-of-ds=rekkehus_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_rekkehus_historisk:
+      name: bydelsfakta-bygningstyper-rekkehus-historisk
+      tasks:
+        - task_key: bygningstyper_rekkehus_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-rekkehus-historisk"
+              - "--type-of-ds=rekkehus_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_totalt_status:
+      name: bydelsfakta-bygningstyper-totalt-status
+      tasks:
+        - task_key: bygningstyper_totalt_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-totalt-status"
+              - "--type-of-ds=totalt_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    bygningstyper_totalt_historisk:
+      name: bydelsfakta-bygningstyper-totalt-historisk
+      tasks:
+        - task_key: bygningstyper_totalt_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: bygningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/bygningstyper-totalt-historisk"
+              - "--type-of-ds=totalt_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

@@ -1,0 +1,128 @@
+resources:
+  jobs:
+    innvandring_under16_innvandrer_status:
+      name: bydelsfakta-innvandring-under-16-innvandrer-status
+      tasks:
+        - task_key: innvandring_under16_innvandrer_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--silver-dir=${var.silver_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-innvandrer-status"
+              - "--type-of-ds=innvandrer_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandring_under16_innvandrer_historisk:
+      name: bydelsfakta-innvandring-under-16-innvandrer-historisk
+      tasks:
+        - task_key: innvandring_under16_innvandrer_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-innvandrer-historisk"
+              - "--type-of-ds=innvandrer_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandring_under16_en_innvandrerforelder_status:
+      name: bydelsfakta-innvandring-under-16-en-innvandrerforelder-status
+      tasks:
+        - task_key: innvandring_under16_en_innvandrerforelder_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-en-innvandrerforelder-status"
+              - "--type-of-ds=en-innvandrer_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandring_under16_en_innvandrerforelder_historisk:
+      name: bydelsfakta-innvandring-under-16-en-innvandrerforelder-historisk
+      tasks:
+        - task_key: innvandring_under16_en_innvandrerforelder_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-en-innvandrerforelder-historisk"
+              - "--type-of-ds=en-innvandrer_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandring_under16_to_innvandrerforeldre_status:
+      name: bydelsfakta-innvandring-under-16-to-innvandrerforeldre-status
+      tasks:
+        - task_key: innvandring_under16_to_innvandrerforeldre_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-to-innvandrerforeldre-status"
+              - "--type-of-ds=to-innvandrer_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandring_under16_to_innvandrerforeldre_historisk:
+      name: bydelsfakta-innvandring-under-16-to-innvandrerforeldre-historisk
+      tasks:
+        - task_key: innvandring_under16_to_innvandrerforeldre_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandring_under16
+            parameters:
+              - "--input-dir=${var.uploads_dir}/innvandrer-befolkningen-0-15-ar"
+              - "--output-dir=${var.gold_dir}/innvandring-under-16-to-innvandrerforeldre-historisk"
+              - "--type-of-ds=to-innvandrer_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

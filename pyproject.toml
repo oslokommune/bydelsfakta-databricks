@@ -1,0 +1,49 @@
+[project]
+name = "bydelsfakta-databricks"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+alder_distribusjon_status = "bydelsfakta.jobs.alder_distribusjon_status:main"
+befolkningsutvkl_forv_utvkl = "bydelsfakta.jobs.befolkningsutvkl_forv_utvkl:main"
+boligpriser = "bydelsfakta.jobs.boligpriser:main"
+botid_ikke_vestlige = "bydelsfakta.jobs.botid_ikke_vestlige:main"
+bygningstyper = "bydelsfakta.jobs.bygningstyper:main"
+eieform = "bydelsfakta.jobs.eieform:main"
+fattige_barnehusholdninger = "bydelsfakta.jobs.fattige_barnehusholdninger:main"
+flyttehyppighet_totalt = "bydelsfakta.jobs.flyttehyppighet_totalt:main"
+folkemengde = "bydelsfakta.jobs.folkemengde:main"
+husholdning_med_barn = "bydelsfakta.jobs.husholdning_med_barn:main"
+husholdningstyper = "bydelsfakta.jobs.husholdningstyper:main"
+innvandrer_befolkning = "bydelsfakta.jobs.innvandrer_befolkning:main"
+innvandring_under16 = "bydelsfakta.jobs.innvandring_under16:main"
+kommunale_boliger = "bydelsfakta.jobs.kommunale_boliger:main"
+landbakgrunn_innvandringsgrupper = "bydelsfakta.jobs.landbakgrunn_innvandringsgrupper:main"
+levekaar_dodsrate = "bydelsfakta.jobs.levekaar_dodsrate:main"
+levekar_ikke_sysselsatte = "bydelsfakta.jobs.levekar_ikke_sysselsatte:main"
+levekar_lav_utdanning = "bydelsfakta.jobs.levekar_lav_utdanning:main"
+levekar_redusert_funksjonsevne = "bydelsfakta.jobs.levekar_redusert_funksjonsevne:main"
+levekar_totalt = "bydelsfakta.jobs.levekar_totalt:main"
+levekar_trangbodde = "bydelsfakta.jobs.levekar_trangbodde:main"
+median_totalpris = "bydelsfakta.jobs.median_totalpris:main"
+neets = "bydelsfakta.jobs.neets:main"
+trangboddhet = "bydelsfakta.jobs.trangboddhet:main"
+utdanning = "bydelsfakta.jobs.utdanning:main"
+
+[dependency-groups]
+test = ["pandas", "numpy", "pytest", "openpyxl"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bydelsfakta"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 80
+
+[tool.ruff.lint]
+select = ["A", "E", "F", "I", "UP", "W"]

@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    landbakgrunn_innvandringsgrupper_status:
+      name: bydelsfakta-landbakgrunn-innvandringsgrupper-status
+      tasks:
+        - task_key: landbakgrunn_innvandringsgrupper_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: landbakgrunn_innvandringsgrupper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/landbakgrunn-storste-innvandringsgrupper"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--silver-dir=${var.silver_dir}/landbakgrunn-storste-innvandringsgrupper"
+              - "--output-dir=${var.gold_dir}/landbakgrunn-innvandringsgrupper-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    landbakgrunn_innvandringsgrupper_historisk:
+      name: bydelsfakta-landbakgrunn-innvandringsgrupper-historisk
+      tasks:
+        - task_key: landbakgrunn_innvandringsgrupper_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: landbakgrunn_innvandringsgrupper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/landbakgrunn-storste-innvandringsgrupper"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/landbakgrunn-innvandringsgrupper-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

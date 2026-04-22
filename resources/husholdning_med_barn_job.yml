@@ -1,0 +1,170 @@
+resources:
+  jobs:
+    husholdning_med_barn_alle_status:
+      name: bydelsfakta-husholdning-totalt-status
+      tasks:
+        - task_key: husholdning_med_barn_alle_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--silver-dir=${var.silver_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdning-totalt-status"
+              - "--type-of-ds=alle_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_alle_historisk:
+      name: bydelsfakta-husholdning-totalt-historisk
+      tasks:
+        - task_key: husholdning_med_barn_alle_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdning-totalt-historisk"
+              - "--type-of-ds=alle_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_1barn_status:
+      name: bydelsfakta-husholdninger-med-1-barn-status
+      tasks:
+        - task_key: husholdning_med_barn_1barn_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-1-barn-status"
+              - "--type-of-ds=1barn_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_1barn_historisk:
+      name: bydelsfakta-husholdninger-med-1-barn-historisk
+      tasks:
+        - task_key: husholdning_med_barn_1barn_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-1-barn-historisk"
+              - "--type-of-ds=1barn_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_2barn_status:
+      name: bydelsfakta-husholdninger-med-2-barn-status
+      tasks:
+        - task_key: husholdning_med_barn_2barn_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-2-barn-status"
+              - "--type-of-ds=2barn_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_2barn_historisk:
+      name: bydelsfakta-husholdninger-med-2-barn-historisk
+      tasks:
+        - task_key: husholdning_med_barn_2barn_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-2-barn-historisk"
+              - "--type-of-ds=2barn_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_3barn_status:
+      name: bydelsfakta-husholdninger-med-3-barn-status
+      tasks:
+        - task_key: husholdning_med_barn_3barn_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-3-barn-status"
+              - "--type-of-ds=3barn_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdning_med_barn_3barn_historisk:
+      name: bydelsfakta-husholdninger-med-3-barn-historisk
+      tasks:
+        - task_key: husholdning_med_barn_3barn_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdning_med_barn
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-med-barn"
+              - "--output-dir=${var.gold_dir}/husholdninger-med-3-barn-historisk"
+              - "--type-of-ds=3barn_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    levekar_redusert_funksjonsevne_status:
+      name: bydelsfakta-levekar-redusert-funksjonsevne-status
+      tasks:
+        - task_key: levekar_redusert_funksjonsevne_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: levekar_redusert_funksjonsevne
+            parameters:
+              - "--input-dir=${var.uploads_dir}/redusert-funksjonsevne"
+              - "--silver-dir=${var.silver_dir}/redusert-funksjonsevne"
+              - "--output-dir=${var.gold_dir}/levekar-redusert-funksjonsevne-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    levekar_redusert_funksjonsevne_historisk:
+      name: bydelsfakta-levekar-redusert-funksjonsevne-historisk
+      tasks:
+        - task_key: levekar_redusert_funksjonsevne_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: levekar_redusert_funksjonsevne
+            parameters:
+              - "--input-dir=${var.uploads_dir}/redusert-funksjonsevne"
+              - "--output-dir=${var.gold_dir}/levekar-redusert-funksjonsevne-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

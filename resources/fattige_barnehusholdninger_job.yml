@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    fattige_barnehusholdninger_status:
+      name: bydelsfakta-fattige-barnehusholdninger-status
+      tasks:
+        - task_key: fattige_barnehusholdninger_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: fattige_barnehusholdninger
+            parameters:
+              - "--input-dir=${var.uploads_dir}/fattige-husholdninger"
+              - "--silver-dir=${var.silver_dir}/fattige-husholdninger"
+              - "--output-dir=${var.gold_dir}/fattige-barnehusholdninger-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    fattige_barnehusholdninger_historisk:
+      name: bydelsfakta-fattige-barnehusholdninger-historisk
+      tasks:
+        - task_key: fattige_barnehusholdninger_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: fattige_barnehusholdninger
+            parameters:
+              - "--input-dir=${var.uploads_dir}/fattige-husholdninger"
+              - "--output-dir=${var.gold_dir}/fattige-barnehusholdninger-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

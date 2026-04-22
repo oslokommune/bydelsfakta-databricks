@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    eieform_status:
+      name: bydelsfakta-eieform-status
+      tasks:
+        - task_key: eieform_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: eieform
+            parameters:
+              - "--input-dir=${var.uploads_dir}/eieform"
+              - "--silver-dir=${var.silver_dir}/eieform"
+              - "--output-dir=${var.gold_dir}/eieform-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    eieform_historisk:
+      name: bydelsfakta-eieform-historisk
+      tasks:
+        - task_key: eieform_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: eieform
+            parameters:
+              - "--input-dir=${var.uploads_dir}/eieform"
+              - "--output-dir=${var.gold_dir}/eieform-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

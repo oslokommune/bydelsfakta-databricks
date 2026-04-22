@@ -1,0 +1,550 @@
+resources:
+  jobs:
+    trigger_befolkning_etter_kjonn_og_alder:
+      name: bydelsfakta-trigger-befolkning-etter-kjonn-og-alder
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/befolkning-etter-kjonn-og-alder/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: alder_distribusjon_status
+          run_job_task:
+            job_id: ${resources.jobs.alder_distribusjon_status.id}
+        - task_key: botid_ikke_vestlige_historisk
+          run_job_task:
+            job_id: ${resources.jobs.botid_ikke_vestlige_historisk.id}
+        - task_key: botid_ikke_vestlige_status
+          run_job_task:
+            job_id: ${resources.jobs.botid_ikke_vestlige_status.id}
+        - task_key: folkemengde_historisk
+          run_job_task:
+            job_id: ${resources.jobs.folkemengde_historisk.id}
+        - task_key: folkemengde_historisk_prosent
+          run_job_task:
+            job_id: ${resources.jobs.folkemengde_historisk_prosent.id}
+        - task_key: folkemengde_nokkeltall
+          run_job_task:
+            job_id: ${resources.jobs.folkemengde_nokkeltall.id}
+        - task_key: innvandrer_befolkning_alle_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_alle_historisk.id}
+        - task_key: innvandrer_befolkning_alle_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_alle_status.id}
+        - task_key: innvandrer_befolkning_kort_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_kort_historisk.id}
+        - task_key: innvandrer_befolkning_kort_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_kort_status.id}
+        - task_key: innvandrer_befolkning_lang_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_lang_historisk.id}
+        - task_key: innvandrer_befolkning_lang_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_lang_status.id}
+        - task_key: innvandrer_befolkning_to_foreldre_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_to_foreldre_historisk.id}
+        - task_key: innvandrer_befolkning_to_foreldre_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_to_foreldre_status.id}
+        - task_key: landbakgrunn_innvandringsgrupper_historisk
+          run_job_task:
+            job_id: ${resources.jobs.landbakgrunn_innvandringsgrupper_historisk.id}
+        - task_key: landbakgrunn_innvandringsgrupper_status
+          run_job_task:
+            job_id: ${resources.jobs.landbakgrunn_innvandringsgrupper_status.id}
+        - task_key: levekar_ikke_sysselsatte_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekar_ikke_sysselsatte_historisk.id}
+        - task_key: levekar_ikke_sysselsatte_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_ikke_sysselsatte_status.id}
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+        - task_key: befolkningsutvkl_forv_utvkl
+          run_job_task:
+            job_id: ${resources.jobs.befolkningsutvkl_forv_utvkl.id}
+
+    trigger_boligmengde_etter_boligtype:
+      name: bydelsfakta-trigger-boligmengde-etter-boligtype
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/boligmengde-etter-boligtype/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: bygningstyper_alle_historisk
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_alle_historisk.id}
+        - task_key: bygningstyper_alle_status
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_alle_status.id}
+        - task_key: bygningstyper_blokk_historisk
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_blokk_historisk.id}
+        - task_key: bygningstyper_blokk_status
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_blokk_status.id}
+        - task_key: bygningstyper_enebolig_historisk
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_enebolig_historisk.id}
+        - task_key: bygningstyper_enebolig_status
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_enebolig_status.id}
+        - task_key: bygningstyper_rekkehus_historisk
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_rekkehus_historisk.id}
+        - task_key: bygningstyper_rekkehus_status
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_rekkehus_status.id}
+        - task_key: bygningstyper_totalt_historisk
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_totalt_historisk.id}
+        - task_key: bygningstyper_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.bygningstyper_totalt_status.id}
+        - task_key: kommunale_boliger_historisk
+          run_job_task:
+            job_id: ${resources.jobs.kommunale_boliger_historisk.id}
+        - task_key: kommunale_boliger_status
+          run_job_task:
+            job_id: ${resources.jobs.kommunale_boliger_status.id}
+
+    trigger_boligpriser_blokkleiligheter:
+      name: bydelsfakta-trigger-boligpriser-blokkleiligheter
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/boligpriser-blokkleiligheter/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: boligpriser_historisk
+          run_job_task:
+            job_id: ${resources.jobs.boligpriser_historisk.id}
+        - task_key: boligpriser_status
+          run_job_task:
+            job_id: ${resources.jobs.boligpriser_status.id}
+
+    trigger_botid:
+      name: bydelsfakta-trigger-botid
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/botid/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: innvandrer_befolkning_alle_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_alle_historisk.id}
+        - task_key: innvandrer_befolkning_alle_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_alle_status.id}
+        - task_key: innvandrer_befolkning_kort_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_kort_historisk.id}
+        - task_key: innvandrer_befolkning_kort_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_kort_status.id}
+        - task_key: innvandrer_befolkning_lang_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_lang_historisk.id}
+        - task_key: innvandrer_befolkning_lang_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_lang_status.id}
+        - task_key: innvandrer_befolkning_to_foreldre_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_to_foreldre_historisk.id}
+        - task_key: innvandrer_befolkning_to_foreldre_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandrer_befolkning_to_foreldre_status.id}
+
+    trigger_botid_ikke_vestlige:
+      name: bydelsfakta-trigger-botid-ikke-vestlige
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/botid-ikke-vestlige/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: botid_ikke_vestlige_historisk
+          run_job_task:
+            job_id: ${resources.jobs.botid_ikke_vestlige_historisk.id}
+        - task_key: botid_ikke_vestlige_status
+          run_job_task:
+            job_id: ${resources.jobs.botid_ikke_vestlige_status.id}
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+
+    trigger_eieform:
+      name: bydelsfakta-trigger-eieform
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/eieform/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: eieform_historisk
+          run_job_task:
+            job_id: ${resources.jobs.eieform_historisk.id}
+        - task_key: eieform_status
+          run_job_task:
+            job_id: ${resources.jobs.eieform_status.id}
+
+    trigger_fattige_husholdninger:
+      name: bydelsfakta-trigger-fattige-husholdninger
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/fattige-husholdninger/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: fattige_barnehusholdninger_historisk
+          run_job_task:
+            job_id: ${resources.jobs.fattige_barnehusholdninger_historisk.id}
+        - task_key: fattige_barnehusholdninger_status
+          run_job_task:
+            job_id: ${resources.jobs.fattige_barnehusholdninger_status.id}
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+
+    trigger_dodsrater:
+      name: bydelsfakta-trigger-dodsrater
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/dodsrater/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekaar_dodsrate_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekaar_dodsrate_historisk.id}
+        - task_key: levekaar_dodsrate_status
+          run_job_task:
+            job_id: ${resources.jobs.levekaar_dodsrate_status.id}
+
+    trigger_dode:
+      name: bydelsfakta-trigger-dode
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/dode/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: befolkningsutvkl_forv_utvkl
+          run_job_task:
+            job_id: ${resources.jobs.befolkningsutvkl_forv_utvkl.id}
+
+    trigger_fodte:
+      name: bydelsfakta-trigger-fodte
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/fodte/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: befolkningsutvkl_forv_utvkl
+          run_job_task:
+            job_id: ${resources.jobs.befolkningsutvkl_forv_utvkl.id}
+
+    trigger_flytting_fra_etter_alder:
+      name: bydelsfakta-trigger-flytting-fra-etter-alder
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/flytting-fra-etter-alder/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: flyttehyppighet_totalt_historisk
+          run_job_task:
+            job_id: ${resources.jobs.flyttehyppighet_totalt_historisk.id}
+        - task_key: flyttehyppighet_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.flyttehyppighet_totalt_status.id}
+        - task_key: befolkningsutvkl_forv_utvkl
+          run_job_task:
+            job_id: ${resources.jobs.befolkningsutvkl_forv_utvkl.id}
+
+    trigger_flytting_til_etter_alder:
+      name: bydelsfakta-trigger-flytting-til-etter-alder
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/flytting-til-etter-alder/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: flyttehyppighet_totalt_historisk
+          run_job_task:
+            job_id: ${resources.jobs.flyttehyppighet_totalt_historisk.id}
+        - task_key: flyttehyppighet_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.flyttehyppighet_totalt_status.id}
+        - task_key: befolkningsutvkl_forv_utvkl
+          run_job_task:
+            job_id: ${resources.jobs.befolkningsutvkl_forv_utvkl.id}
+
+    trigger_husholdninger_etter_rom_per_person:
+      name: bydelsfakta-trigger-husholdninger-etter-rom-per-person
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/husholdninger-etter-rom-per-person/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: trangboddhet_0_5_0_9_historisk
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_0_5_0_9_historisk.id}
+        - task_key: trangboddhet_0_5_0_9_status
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_0_5_0_9_status.id}
+        - task_key: trangboddhet_1_0_1_9_historisk
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_1_0_1_9_historisk.id}
+        - task_key: trangboddhet_1_0_1_9_status
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_1_0_1_9_status.id}
+        - task_key: trangboddhet_alle_historisk
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_alle_historisk.id}
+        - task_key: trangboddhet_alle_status
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_alle_status.id}
+        - task_key: trangboddhet_over_2_historisk
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_over_2_historisk.id}
+        - task_key: trangboddhet_over_2_status
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_over_2_status.id}
+        - task_key: trangboddhet_under_0_5_historisk
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_under_0_5_historisk.id}
+        - task_key: trangboddhet_under_0_5_status
+          run_job_task:
+            job_id: ${resources.jobs.trangboddhet_under_0_5_status.id}
+
+    trigger_husholdninger_med_barn:
+      name: bydelsfakta-trigger-husholdninger-med-barn
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/husholdninger-med-barn/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: husholdning_med_barn_1barn_historisk
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_1barn_historisk.id}
+        - task_key: husholdning_med_barn_1barn_status
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_1barn_status.id}
+        - task_key: husholdning_med_barn_2barn_historisk
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_2barn_historisk.id}
+        - task_key: husholdning_med_barn_2barn_status
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_2barn_status.id}
+        - task_key: husholdning_med_barn_3barn_historisk
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_3barn_historisk.id}
+        - task_key: husholdning_med_barn_3barn_status
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_3barn_status.id}
+        - task_key: husholdning_med_barn_alle_historisk
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_alle_historisk.id}
+        - task_key: husholdning_med_barn_alle_status
+          run_job_task:
+            job_id: ${resources.jobs.husholdning_med_barn_alle_status.id}
+
+    trigger_husholdningstyper:
+      name: bydelsfakta-trigger-husholdningstyper
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/husholdningstyper/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: husholdningstyper_historisk
+          run_job_task:
+            job_id: ${resources.jobs.husholdningstyper_historisk.id}
+        - task_key: husholdningstyper_status
+          run_job_task:
+            job_id: ${resources.jobs.husholdningstyper_status.id}
+
+    trigger_innvandrer_befolkningen_0_15_ar:
+      name: bydelsfakta-trigger-innvandrer-befolkningen-0-15-ar
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/innvandrer-befolkningen-0-15-ar/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: innvandring_under16_en_innvandrerforelder_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_en_innvandrerforelder_historisk.id}
+        - task_key: innvandring_under16_en_innvandrerforelder_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_en_innvandrerforelder_status.id}
+        - task_key: innvandring_under16_innvandrer_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_innvandrer_historisk.id}
+        - task_key: innvandring_under16_innvandrer_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_innvandrer_status.id}
+        - task_key: innvandring_under16_to_innvandrerforeldre_historisk
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_to_innvandrerforeldre_historisk.id}
+        - task_key: innvandring_under16_to_innvandrerforeldre_status
+          run_job_task:
+            job_id: ${resources.jobs.innvandring_under16_to_innvandrerforeldre_status.id}
+
+    trigger_kommunale_boliger:
+      name: bydelsfakta-trigger-kommunale-boliger
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/kommunale-boliger/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: kommunale_boliger_historisk
+          run_job_task:
+            job_id: ${resources.jobs.kommunale_boliger_historisk.id}
+        - task_key: kommunale_boliger_status
+          run_job_task:
+            job_id: ${resources.jobs.kommunale_boliger_status.id}
+
+    trigger_landbakgrunn_storste_innvandringsgrupper:
+      name: bydelsfakta-trigger-landbakgrunn-storste-innvandringsgrupper
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/landbakgrunn-storste-innvandringsgrupper/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: landbakgrunn_innvandringsgrupper_historisk
+          run_job_task:
+            job_id: ${resources.jobs.landbakgrunn_innvandringsgrupper_historisk.id}
+        - task_key: landbakgrunn_innvandringsgrupper_status
+          run_job_task:
+            job_id: ${resources.jobs.landbakgrunn_innvandringsgrupper_status.id}
+
+    trigger_lav_utdanning:
+      name: bydelsfakta-trigger-lav-utdanning
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/lav-utdanning/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekar_lav_utdanning_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekar_lav_utdanning_historisk.id}
+        - task_key: levekar_lav_utdanning_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_lav_utdanning_status.id}
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+
+    trigger_median_totalpris:
+      name: bydelsfakta-trigger-median-totalpris
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/median-totalpris/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: median_totalpris_historisk
+          run_job_task:
+            job_id: ${resources.jobs.median_totalpris_historisk.id}
+        - task_key: median_totalpris_status
+          run_job_task:
+            job_id: ${resources.jobs.median_totalpris_status.id}
+
+    trigger_neets:
+      name: bydelsfakta-trigger-neets
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/neets/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+        - task_key: neets_historisk
+          run_job_task:
+            job_id: ${resources.jobs.neets_historisk.id}
+        - task_key: neets_status
+          run_job_task:
+            job_id: ${resources.jobs.neets_status.id}
+
+    trigger_redusert_funksjonsevne:
+      name: bydelsfakta-trigger-redusert-funksjonsevne
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/redusert-funksjonsevne/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekar_redusert_funksjonsevne_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekar_redusert_funksjonsevne_historisk.id}
+        - task_key: levekar_redusert_funksjonsevne_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_redusert_funksjonsevne_status.id}
+
+    trigger_sysselsatte:
+      name: bydelsfakta-trigger-sysselsatte
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/sysselsatte/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekar_ikke_sysselsatte_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekar_ikke_sysselsatte_historisk.id}
+        - task_key: levekar_ikke_sysselsatte_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_ikke_sysselsatte_status.id}
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+
+    trigger_trangbodde:
+      name: bydelsfakta-trigger-trangbodde
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/trangbodde/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: levekar_totalt_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_totalt_status.id}
+        - task_key: levekar_trangbodde_historisk
+          run_job_task:
+            job_id: ${resources.jobs.levekar_trangbodde_historisk.id}
+        - task_key: levekar_trangbodde_status
+          run_job_task:
+            job_id: ${resources.jobs.levekar_trangbodde_status.id}
+
+    trigger_utdanning:
+      name: bydelsfakta-trigger-utdanning
+      trigger:
+        file_arrival:
+          url: /Volumes/${var.catalog}/bronze_default/uploads/utdanning/
+          wait_after_last_change_seconds: 60
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: utdanning_historisk
+          run_job_task:
+            job_id: ${resources.jobs.utdanning_historisk.id}
+        - task_key: utdanning_status
+          run_job_task:
+            job_id: ${resources.jobs.utdanning_status.id}

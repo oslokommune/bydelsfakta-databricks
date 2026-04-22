@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    husholdningstyper_status:
+      name: bydelsfakta-husholdningstyper-status
+      tasks:
+        - task_key: husholdningstyper_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdningstyper"
+              - "--silver-dir=${var.silver_dir}/husholdningstyper"
+              - "--output-dir=${var.gold_dir}/husholdningstyper-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    husholdningstyper_historisk:
+      name: bydelsfakta-husholdningstyper-historisk
+      tasks:
+        - task_key: husholdningstyper_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: husholdningstyper
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdningstyper"
+              - "--output-dir=${var.gold_dir}/husholdningstyper-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    utdanning_status:
+      name: bydelsfakta-utdanning-status
+      tasks:
+        - task_key: utdanning_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: utdanning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/utdanning"
+              - "--silver-dir=${var.silver_dir}/utdanning"
+              - "--output-dir=${var.gold_dir}/utdanning-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    utdanning_historisk:
+      name: bydelsfakta-utdanning-historisk
+      tasks:
+        - task_key: utdanning_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: utdanning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/utdanning"
+              - "--output-dir=${var.gold_dir}/utdanning-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

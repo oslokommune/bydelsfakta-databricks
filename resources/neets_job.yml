@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    neets_status:
+      name: bydelsfakta-neets-status
+      tasks:
+        - task_key: neets_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: neets
+            parameters:
+              - "--input-dir=${var.uploads_dir}/neets"
+              - "--silver-dir=${var.silver_dir}/neets"
+              - "--output-dir=${var.gold_dir}/neets-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    neets_historisk:
+      name: bydelsfakta-neets-historisk
+      tasks:
+        - task_key: neets_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: neets
+            parameters:
+              - "--input-dir=${var.uploads_dir}/neets"
+              - "--output-dir=${var.gold_dir}/neets-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

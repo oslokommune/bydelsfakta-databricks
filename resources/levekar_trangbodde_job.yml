@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    levekar_trangbodde_status:
+      name: bydelsfakta-levekar-trangbodde-status
+      tasks:
+        - task_key: levekar_trangbodde_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: levekar_trangbodde
+            parameters:
+              - "--input-dir=${var.uploads_dir}/trangbodde"
+              - "--silver-dir=${var.silver_dir}/trangbodde"
+              - "--output-dir=${var.gold_dir}/levekar-trangbodde-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    levekar_trangbodde_historisk:
+      name: bydelsfakta-levekar-trangbodde-historisk
+      tasks:
+        - task_key: levekar_trangbodde_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: levekar_trangbodde
+            parameters:
+              - "--input-dir=${var.uploads_dir}/trangbodde"
+              - "--output-dir=${var.gold_dir}/levekar-trangbodde-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

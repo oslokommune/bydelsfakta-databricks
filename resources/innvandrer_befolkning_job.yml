@@ -1,0 +1,178 @@
+resources:
+  jobs:
+    innvandrer_befolkning_alle_status:
+      name: bydelsfakta-innvandring-befolkning-alle-status
+      tasks:
+        - task_key: innvandrer_befolkning_alle_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--silver-dir=${var.silver_dir}/innvandrer-befolkning"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-alle-status"
+              - "--type-of-ds=alle_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_alle_historisk:
+      name: bydelsfakta-innvandring-befolkning-alle-historisk
+      tasks:
+        - task_key: innvandrer_befolkning_alle_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-alle-historisk"
+              - "--type-of-ds=alle_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_kort_status:
+      name: bydelsfakta-innvandring-befolkning-kort-status
+      tasks:
+        - task_key: innvandrer_befolkning_kort_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-kort-status"
+              - "--type-of-ds=kort_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_kort_historisk:
+      name: bydelsfakta-innvandring-befolkning-kort-historisk
+      tasks:
+        - task_key: innvandrer_befolkning_kort_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-kort-historisk"
+              - "--type-of-ds=kort_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_lang_status:
+      name: bydelsfakta-innvandring-befolkning-lang-status
+      tasks:
+        - task_key: innvandrer_befolkning_lang_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-lang-status"
+              - "--type-of-ds=lang_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_lang_historisk:
+      name: bydelsfakta-innvandring-befolkning-lang-historisk
+      tasks:
+        - task_key: innvandrer_befolkning_lang_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-lang-historisk"
+              - "--type-of-ds=lang_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_to_foreldre_status:
+      name: bydelsfakta-innvandring-befolkning-to-foreldre-status
+      tasks:
+        - task_key: innvandrer_befolkning_to_foreldre_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-to-foreldre-status"
+              - "--type-of-ds=to_foreldre_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    innvandrer_befolkning_to_foreldre_historisk:
+      name: bydelsfakta-innvandring-befolkning-to-foreldre-historisk
+      tasks:
+        - task_key: innvandrer_befolkning_to_foreldre_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: innvandrer_befolkning
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/innvandring-befolkning-to-foreldre-historisk"
+              - "--type-of-ds=to_foreldre_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

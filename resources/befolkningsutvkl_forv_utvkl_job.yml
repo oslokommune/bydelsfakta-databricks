@@ -1,0 +1,26 @@
+resources:
+  jobs:
+    befolkningsutvkl_forv_utvkl:
+      name: bydelsfakta-befolkningsutvkl-forv-utvkl
+      tasks:
+        - task_key: befolkningsutvkl_forv_utvkl
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: befolkningsutvkl_forv_utvkl
+            parameters:
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--dode-dir=${var.uploads_dir}/dode"
+              - "--fodte-dir=${var.uploads_dir}/fodte"
+              - "--fra-dir=${var.uploads_dir}/flytting-fra-etter-alder"
+              - "--til-dir=${var.uploads_dir}/flytting-til-etter-alder"
+              - "--silver-dir=${var.silver_dir}/befolkningsutvkl-forv-utvkl"
+              - "--output-dir=${var.gold_dir}/befolkningsutvikling-og-forventet-utvikling"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

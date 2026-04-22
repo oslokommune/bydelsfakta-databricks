@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    botid_ikke_vestlige_status:
+      name: bydelsfakta-levekar-innvandrere-ikke-vestlige-kort-status
+      tasks:
+        - task_key: botid_ikke_vestlige_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: botid_ikke_vestlige
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid-ikke-vestlige"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--silver-dir=${var.silver_dir}/botid-ikke-vestlige"
+              - "--output-dir=${var.gold_dir}/levekar-innvandrere-ikke-vestlige-kort-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    botid_ikke_vestlige_historisk:
+      name: bydelsfakta-levekar-innvandrere-ikke-vestlige-kort-historisk
+      tasks:
+        - task_key: botid_ikke_vestlige_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: botid_ikke_vestlige
+            parameters:
+              - "--input-dir=${var.uploads_dir}/botid-ikke-vestlige"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--output-dir=${var.gold_dir}/levekar-innvandrere-ikke-vestlige-kort-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

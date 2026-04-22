@@ -1,0 +1,28 @@
+resources:
+  jobs:
+    levekar_totalt_status:
+      name: bydelsfakta-levekar-totalt-status
+      tasks:
+        - task_key: levekar_totalt_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: levekar_totalt
+            parameters:
+              - "--botid-dir=${var.uploads_dir}/botid-ikke-vestlige"
+              - "--lav-utdanning-dir=${var.uploads_dir}/lav-utdanning"
+              - "--fattige-dir=${var.uploads_dir}/fattige-husholdninger"
+              - "--sysselsatte-dir=${var.uploads_dir}/sysselsatte"
+              - "--befolkning-dir=${var.uploads_dir}/befolkning-etter-kjonn-og-alder"
+              - "--neets-dir=${var.uploads_dir}/neets"
+              - "--trangbodde-dir=${var.uploads_dir}/trangbodde"
+              - "--output-dir=${var.gold_dir}/levekar-totalt-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

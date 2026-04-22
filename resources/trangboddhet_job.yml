@@ -1,0 +1,212 @@
+resources:
+  jobs:
+    trangboddhet_alle_status:
+      name: bydelsfakta-trangboddhet-alle-status
+      tasks:
+        - task_key: trangboddhet_alle_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--silver-dir=${var.silver_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-alle-status"
+              - "--type-of-ds=alle_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_alle_historisk:
+      name: bydelsfakta-trangboddhet-alle-historisk
+      tasks:
+        - task_key: trangboddhet_alle_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-alle-historisk"
+              - "--type-of-ds=alle_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_under_0_5_status:
+      name: bydelsfakta-trangboddhet-under-0-5-status
+      tasks:
+        - task_key: trangboddhet_under_0_5_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-under-0-5-status"
+              - "--type-of-ds=under-0-5_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_under_0_5_historisk:
+      name: bydelsfakta-trangboddhet-under-0-5-historisk
+      tasks:
+        - task_key: trangboddhet_under_0_5_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-under-0-5-historisk"
+              - "--type-of-ds=under-0-5_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_0_5_0_9_status:
+      name: bydelsfakta-trangboddhet-0-5-0-9-status
+      tasks:
+        - task_key: trangboddhet_0_5_0_9_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-0-5-0-9-status"
+              - "--type-of-ds=0-5-0-9_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_0_5_0_9_historisk:
+      name: bydelsfakta-trangboddhet-0-5-0-9-historisk
+      tasks:
+        - task_key: trangboddhet_0_5_0_9_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-0-5-0-9-historisk"
+              - "--type-of-ds=0-5-0-9_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_1_0_1_9_status:
+      name: bydelsfakta-trangboddhet-1-0-1-9-status
+      tasks:
+        - task_key: trangboddhet_1_0_1_9_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-1-0-1-9-status"
+              - "--type-of-ds=1-0-1-9_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_1_0_1_9_historisk:
+      name: bydelsfakta-trangboddhet-1-0-1-9-historisk
+      tasks:
+        - task_key: trangboddhet_1_0_1_9_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-1-0-1-9-historisk"
+              - "--type-of-ds=1-0-1-9_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_over_2_status:
+      name: bydelsfakta-trangboddhet-over-2-status
+      tasks:
+        - task_key: trangboddhet_over_2_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-over-2-status"
+              - "--type-of-ds=over-2_status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    trangboddhet_over_2_historisk:
+      name: bydelsfakta-trangboddhet-over-2-historisk
+      tasks:
+        - task_key: trangboddhet_over_2_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: trangboddhet
+            parameters:
+              - "--input-dir=${var.uploads_dir}/husholdninger-etter-rom-per-person"
+              - "--output-dir=${var.gold_dir}/trangboddhet-over-2-historisk"
+              - "--type-of-ds=over-2_historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

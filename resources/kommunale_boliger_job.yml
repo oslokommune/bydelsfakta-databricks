@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    kommunale_boliger_status:
+      name: bydelsfakta-kommunale-boliger-av-boligmassen-i-alt-status
+      tasks:
+        - task_key: kommunale_boliger_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: kommunale_boliger
+            parameters:
+              - "--input-dir=${var.uploads_dir}/kommunale-boliger"
+              - "--boligmengde-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--silver-dir=${var.silver_dir}/kommunale-boliger"
+              - "--output-dir=${var.gold_dir}/kommunale-boliger-av-boligmassen-i-alt-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    kommunale_boliger_historisk:
+      name: bydelsfakta-kommunale-boliger-av-boligmassen-i-alt-historisk
+      tasks:
+        - task_key: kommunale_boliger_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: kommunale_boliger
+            parameters:
+              - "--input-dir=${var.uploads_dir}/kommunale-boliger"
+              - "--boligmengde-dir=${var.uploads_dir}/boligmengde-etter-boligtype"
+              - "--output-dir=${var.gold_dir}/kommunale-boliger-av-boligmassen-i-alt-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl

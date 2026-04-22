@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    median_totalpris_status:
+      name: bydelsfakta-median-totalpris-status
+      tasks:
+        - task_key: median_totalpris_status
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: median_totalpris
+            parameters:
+              - "--input-dir=${var.uploads_dir}/median-totalpris"
+              - "--silver-dir=${var.silver_dir}/median-totalpris"
+              - "--output-dir=${var.gold_dir}/median-totalpris-status"
+              - "--type-of-ds=status"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
+
+    median_totalpris_historisk:
+      name: bydelsfakta-median-totalpris-historisk
+      tasks:
+        - task_key: median_totalpris_historisk
+          timeout_seconds: 600
+          python_wheel_task:
+            package_name: bydelsfakta_databricks
+            entry_point: median_totalpris
+            parameters:
+              - "--input-dir=${var.uploads_dir}/median-totalpris"
+              - "--output-dir=${var.gold_dir}/median-totalpris-historisk"
+              - "--type-of-ds=historisk"
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "5"
+            dependencies:
+              - ../dist/*.whl
+              - ../dist/deps/*.whl
