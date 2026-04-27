@@ -6,15 +6,16 @@
 # which is what the jobs expect.
 #
 # Usage:
-#   ./scripts/upload_input.sh <catalog> <schema>
+#   ./scripts/upload_input.sh <catalog> <schema> <profile>
 #
 # Example:
-#   ./scripts/upload_input.sh dig_bydelsfakta_dev_green bronze_default
+#   ./scripts/upload_input.sh dig_bydelsfakta_dev_green bronze_default BYDELSFAKTA_DEV
 
 set -euo pipefail
 
-catalog="${1:?Usage: $0 <catalog> <schema>}"
-schema="${2:?Usage: $0 <catalog> <schema>}"
+catalog="${1:?Usage: $0 <catalog> <schema> <profile>}"
+schema="${2:?Usage: $0 <catalog> <schema> <profile>}"
+profile="${3:?Usage: $0 <catalog> <schema> <profile>}"
 base="dbfs:/Volumes/${catalog}/${schema}/uploads"
 input_dir="$(cd "$(dirname "$0")/.." && pwd)/input"
 
@@ -29,7 +30,7 @@ for file in "$input_dir"/*.xlsx; do
     name="$(basename "$file" .xlsx)"
     target="${base}/${name}/$(basename "$file")"
     echo -n "Uploading ${name}.xlsx ... "
-    databricks fs cp "$file" "$target" --overwrite
+    databricks fs cp "$file" "$target" --overwrite -p "${profile}"
     count=$((count + 1))
 done
 
