@@ -1,0 +1,25 @@
+# Copy this file to workspace-hosts.local.yml and fill in the workspace host
+# URLs for each target. The actual file is gitignored to keep internal
+# infrastructure URLs out of the public repository.
+#
+# The dev block is required for everyday local development (`make deploy-dev`)
+# and authenticates as your personal user.
+#
+# The prod block is only needed as a break-glass mechanism — normal prod
+# deploys go through CI (.github/workflows/deploy.yml). The prod profile must
+# authenticate as the deploy service principal (OAuth M2M with the SP's
+# client ID and secret), not as your personal user. This way `make deploy-prod`
+# lands in the same workspace location as a CI deploy and updates the same
+# jobs, instead of creating a parallel deployment under your user.
+
+targets:
+  dev:
+    workspace:
+      host: https://<dev-workspace-id>.cloud.databricks.com
+      profile: <dev-profile-name>
+
+  prod:
+    workspace:
+      host: https://<prod-workspace-id>.cloud.databricks.com
+      profile: <prod-sp-profile-name>
+      root_path: ~/.bundle/${bundle.name}/${bundle.target}

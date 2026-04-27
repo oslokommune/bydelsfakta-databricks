@@ -39,7 +39,7 @@ def read_dodsrater_excel(path):
 
     # Resolve bydel from name
     bydel = df["Bydel"].map(
-        lambda n: (bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}"))
+        lambda n: bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}")
     )
     df["bydel_id"] = bydel.map(lambda d: d["id"], na_action="ignore")
     df["bydel_navn"] = bydel.map(lambda d: d["name"], na_action="ignore")

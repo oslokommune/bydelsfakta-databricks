@@ -1,0 +1,97 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Which target to deploy
+        type: choice
+        options: [both, dev, prod]
+        default: both
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+      - name: Lint
+        run: |
+          uvx ruff@0.15 check src/
+          uvx ruff@0.15 format --check src/
+      - name: Test
+        run: uv run --group test pytest tests/ -v
+
+  deploy-dev:
+    needs: lint-and-test
+    if: ${{ github.event_name == 'push' || inputs.target == 'dev' || inputs.target == 'both' }}
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Generate workspace-hosts.local.yml
+        run: |
+          cat > workspace-hosts.local.yml <<'EOF'
+          targets:
+            dev:
+              workspace:
+                host: ${{ secrets.DATABRICKS_HOST }}
+                root_path: ~/.bundle/${bundle.name}/${bundle.target}
+          EOF
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+      - uses: databricks/setup-cli@5a9e330acfb8aaf3fcf9b915cca4c7b7e2331c5b # v0.298.0
+      - name: Vendor non-runtime deps
+        run: |
+          mkdir -p dist/deps
+          uvx pip download openpyxl -d dist/deps
+      - name: Validate
+        run: databricks bundle validate -t dev
+      - name: Deploy
+        run: databricks bundle deploy -t dev
+
+  deploy-prod:
+    needs: lint-and-test
+    if: ${{ github.event_name == 'push' || inputs.target == 'prod' || inputs.target == 'both' }}
+    runs-on: ubuntu-latest
+    environment: prod
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Generate workspace-hosts.local.yml
+        run: |
+          cat > workspace-hosts.local.yml <<'EOF'
+          targets:
+            prod:
+              workspace:
+                host: ${{ secrets.DATABRICKS_HOST }}
+                root_path: ~/.bundle/${bundle.name}/${bundle.target}
+          EOF
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+      - uses: databricks/setup-cli@5a9e330acfb8aaf3fcf9b915cca4c7b7e2331c5b # v0.298.0
+      - name: Vendor non-runtime deps
+        run: |
+          mkdir -p dist/deps
+          uvx pip download openpyxl -d dist/deps
+      - name: Validate
+        run: databricks bundle validate -t prod
+      - name: Deploy
+        run: databricks bundle deploy -t prod
