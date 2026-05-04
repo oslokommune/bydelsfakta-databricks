@@ -52,7 +52,7 @@ def read_flytting_fra_excel(path):
 
     # Resolve bydel from name
     bydel = df["fra_bydel"].map(
-        lambda n: (bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}"))
+        lambda n: bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}")
     )
     df["bydel_id"] = bydel.map(lambda d: d["id"], na_action="ignore")
     df["bydel_navn"] = bydel.map(lambda d: d["name"], na_action="ignore")
@@ -115,7 +115,7 @@ def read_flytting_til_excel(path):
 
     # Resolve bydel from name
     bydel = df["til_bydel"].map(
-        lambda n: (bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}"))
+        lambda n: bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}")
     )
     df["bydel_id"] = bydel.map(lambda d: d["id"], na_action="ignore")
     df["bydel_navn"] = bydel.map(lambda d: d["name"], na_action="ignore")

@@ -4,28 +4,33 @@ test:
 
 .PHONY: lint
 lint:
-	ruff check src/
-	ruff format --check src/
+	uvx ruff@0.15 check src/
+	uvx ruff@0.15 format --check src/
 
 .PHONY: format
 format:
-	ruff format src/
+	uvx ruff@0.15 format src/
 
 .PHONY: build
 build:
 	uv build --wheel
+
+.PHONY: vendor
+vendor:
+	mkdir -p dist/deps
+	uvx pip download openpyxl -d dist/deps
 
 .PHONY: validate
 validate:
 	databricks bundle validate
 
 .PHONY: deploy-dev
-deploy-dev: lint test build
-	databricks bundle deploy -t dev
+deploy-dev: lint test build vendor
+	databricks bundle deploy -t dev -p BYDELSFAKTA_DEV
 
 .PHONY: deploy-prod
-deploy-prod: lint is-git-clean test build
-	databricks bundle deploy -t prod
+deploy-prod: lint is-git-clean test build vendor
+	databricks bundle deploy -t prod -p BYDELSFAKTA_PROD
 
 .PHONY: is-git-clean
 is-git-clean:

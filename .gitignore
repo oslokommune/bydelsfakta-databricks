@@ -1,4 +1,5 @@
 *.egg-info/
+*.local.yml
 *.pyc
 .databricks/
 .pytest_cache/

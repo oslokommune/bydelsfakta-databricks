@@ -1,9 +1,6 @@
 bundle:
   name: bydelsfakta-databricks
 
-workspace:
-  profile: BYDELSFAKTA
-
 artifacts:
   python_artifact:
     type: whl
@@ -11,6 +8,7 @@ artifacts:
 
 include:
   - resources/*.yml
+  - workspace-hosts.local.yml
 
 resources:
   volumes:
@@ -58,3 +56,8 @@ targets:
 
   prod:
     mode: production
+    variables:
+      catalog: dig_bydelsfakta_prod_green
+      uploads_dir: /Volumes/dig_bydelsfakta_prod_green/bronze_default/uploads
+      silver_dir: /Volumes/dig_bydelsfakta_prod_green/silver_default/output
+      gold_dir: /Volumes/dig_bydelsfakta_prod_green/gold_default/output

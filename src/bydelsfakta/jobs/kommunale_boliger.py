@@ -61,7 +61,7 @@ def read_kommunale_boliger_excel(path):
         na_action="ignore",
     )
     bydel_via_name = df["Bydel"].map(
-        lambda n: (bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}"))
+        lambda n: bydel_by_name(str(n)) or bydel_by_name(f"Bydel {n}")
     )
     bydel = bydel_via_delbydel.fillna(bydel_via_name)
     df["bydel_id"] = bydel.map(lambda d: d["id"], na_action="ignore")

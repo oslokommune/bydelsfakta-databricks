@@ -1,0 +1,62 @@
+name: PR
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+      - name: Lint
+        run: |
+          uvx ruff@0.15 check src/
+          uvx ruff@0.15 format --check src/
+      - name: Test
+        run: uv run --group test pytest tests/ -v
+
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: dev
+            host_secret: DATABRICKS_HOST_DEV
+            client_id_secret: DATABRICKS_PR_CLIENT_ID_DEV
+          - target: prod
+            host_secret: DATABRICKS_HOST_PROD
+            client_id_secret: DATABRICKS_PR_CLIENT_ID_PROD
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: ${{ secrets[matrix.host_secret] }}
+      DATABRICKS_CLIENT_ID: ${{ secrets[matrix.client_id_secret] }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Generate workspace-hosts.local.yml
+        run: |
+          cat > workspace-hosts.local.yml <<'EOF'
+          targets:
+            ${{ matrix.target }}:
+              workspace:
+                host: ${{ secrets[matrix.host_secret] }}
+                root_path: ~/.bundle/${bundle.name}/${bundle.target}
+          EOF
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+      - uses: databricks/setup-cli@5a9e330acfb8aaf3fcf9b915cca4c7b7e2331c5b # v0.298.0
+      - name: Vendor non-runtime deps
+        run: |
+          mkdir -p dist/deps
+          uvx pip download openpyxl -d dist/deps
+      - name: Validate
+        run: databricks bundle validate -t ${{ matrix.target }}
