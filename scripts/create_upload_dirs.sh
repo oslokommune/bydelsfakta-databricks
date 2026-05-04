@@ -3,15 +3,16 @@
 # Create upload directories inside the uploads Volume.
 #
 # Usage:
-#   ./scripts/create_upload_dirs.sh <catalog> <schema>
+#   ./scripts/create_upload_dirs.sh <catalog> <schema> <profile>
 #
 # Example:
-#   ./scripts/create_upload_dirs.sh dig_bydelsfakta_dev_green bronze_default
+#   ./scripts/create_upload_dirs.sh dig_bydelsfakta_dev_green bronze_default BYDELSFAKTA_DEV
 
 set -euo pipefail
 
-catalog="${1:?Usage: $0 <catalog> <schema>}"
-schema="${2:?Usage: $0 <catalog> <schema>}"
+catalog="${1:?Usage: $0 <catalog> <schema> <profile>}"
+schema="${2:?Usage: $0 <catalog> <schema> <profile>}"
+profile="${3:?Usage: $0 <catalog> <schema> <profile>}"
 base="/Volumes/${catalog}/${schema}/uploads"
 
 dirs=(
@@ -44,7 +45,7 @@ dirs=(
 
 for dir in "${dirs[@]}"; do
     echo "Creating ${base}/${dir}/"
-    databricks api put "/api/2.0/fs/directories${base}/${dir}" -p BYDELSFAKTA
+    databricks api put "/api/2.0/fs/directories${base}/${dir}" -p "${profile}"
 done
 
 echo "Done. Created ${#dirs[@]} directories."
