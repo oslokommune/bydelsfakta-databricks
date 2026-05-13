@@ -10,6 +10,10 @@ include:
   - resources/*.yml
   - workspace-hosts.local.yml
 
+permissions:
+  - group_name: dig-bydelsfakta_WORKSPACE_ADMINS
+    level: CAN_MANAGE
+
 resources:
   volumes:
     uploads:
